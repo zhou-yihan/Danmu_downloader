@@ -74,25 +74,26 @@ def get_danmu(url_list):
         print("Finished {}".format(url.split("=")[-1]))
     danmu.close()
 
-
-cookie = "your_cookies"
+# set cookie and url
+cookie = "your_cookie"
 url = "bilibili_video_url"
 danmu_list = []
 
-#set date interval
+# set date interval
 start = '1/1/2020'
 end = '11/30/2020'
-#get danmu ID
+
+# get danmu ID
 html = open_url(url)
 danmu_id = get_danmu_id(mhtml)
 
-#create urls in the past
+# create urls in the past
 url_list = get_url_list(danmu_id, start, end)
 print(url_list)
 #get danmu per each day
 get_danmu(url_list)
 
 
-# delete duplicate entries
-danmu = pd.read_table("C:/Users/Yihan/Desktop/ma.txt", names = ["视频秒","模式", "字号", "颜色", "时间戳", "弹幕池", "ID", "历史弹幕", "弹幕内容"])
+# delete duplicate entries and add the header
+danmu = pd.read_table("file_path", names = ["视频秒","模式", "字号", "颜色", "时间戳", "弹幕池", "ID", "历史弹幕", "弹幕内容"])
 uniq_danmu = danmu.drop_duplicates()
