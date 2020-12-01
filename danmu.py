@@ -25,7 +25,7 @@ def get_url_list(oid, start, end):
 def open_url(url):
     headers = {"cookie": cookie,
     "origin": "https://www.bilibili.com",
-    "referer": ma_url,
+    "referer": url,
     "sec-fetch-dest": "empty",
     "sec-fetch-mode": "cors",
     "sec-fetch-site": "same-site",
@@ -57,7 +57,7 @@ def get_danmu_id(html):
 
 # read danmu via API
 def get_danmu(url_list):
-    danmu = open("C:/Users/Yihan/Desktop/ma.txt", 'w', encoding='utf8')
+    danmu = open("file_path", 'w', encoding='utf8')
     for i in range(len(url_list)):
         url = url_list[i]     
         danmu_html = open_url(url)
@@ -74,25 +74,25 @@ def get_danmu(url_list):
         print("Finished {}".format(url.split("=")[-1]))
     danmu.close()
 
-'''
-cookie = "_uuid=BBFEEF36-4ADE-F93C-F9D1-42575F060D8915609infoc; buvid3=E68CE157-DB13-4172-9BE2-8BD91855C7FC138379infoc; rpdid=0zbRF2HQUU|PXQ3XwR0|2T8|3w1Kar1M; blackside_state=1; LIVE_BUVID=AUTO1015988206194906; CURRENT_FNVAL=80; DedeUserID=404799053; DedeUserID__ckMd5=55d4bb2c6dc55509; SESSDATA=fad07c6b%2C1617581596%2C0f3d9*a1; bili_jct=d6cc0deafb794ef5c9dd439a9cedfe38; sid=j2htedln; bsource=search_google; finger=1295565314; CURRENT_QUALITY=64; PVID=1"
-ma_url = "https://www.bilibili.com/video/BV1HJ411L7DP"
+
+cookie = "your_cookies"
+url = "bilibili_video_url"
 danmu_list = []
+
 #set date interval
 start = '1/1/2020'
 end = '11/30/2020'
 #get danmu ID
-ma_html = open_url(ma_url)
-danmu_id = get_danmu_id(ma_html)
+html = open_url(url)
+danmu_id = get_danmu_id(mhtml)
 
 #create urls in the past
 url_list = get_url_list(danmu_id, start, end)
 print(url_list)
 #get danmu per each day
 get_danmu(url_list)
-'''
 
-# 弹幕有重复，要去掉
+
+# delete duplicate entries
 danmu = pd.read_table("C:/Users/Yihan/Desktop/ma.txt", names = ["视频秒","模式", "字号", "颜色", "时间戳", "弹幕池", "ID", "历史弹幕", "弹幕内容"])
-
 uniq_danmu = danmu.drop_duplicates()
