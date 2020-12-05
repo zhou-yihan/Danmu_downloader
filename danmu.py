@@ -95,5 +95,5 @@ get_danmu(url_list)
 
 
 # delete duplicate entries and add the header
-danmu = pd.read_table("file_path", names = ["视频秒","模式", "字号", "颜色", "时间戳", "弹幕池", "ID", "历史弹幕", "弹幕内容"])
+danmu = pd.read_table("file_path", sep = ',', names = ["视频秒","模式", "字号", "颜色", "时间戳", "弹幕池", "ID", "历史弹幕", "弹幕内容"])
 uniq_danmu = danmu.drop_duplicates()
